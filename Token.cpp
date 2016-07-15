@@ -28,19 +28,25 @@ string Token::get_type() const
 	return type;
 }
 
-int Token::get_operator_value() const
+int Token::get_operator_precedence() const
 {
-	return operator_value;
+	return operator_precedence;
 }
 
 string Token::get_operator_type() const
 {
 	return operator_type;
 }
+int Token::get_operator_precedence()const
+{
+	return operator_precedence;
+}
 
 // check presedences
-int Token::check_presedece(char op)
+int Token::check_precedece(char op)
 {
+	
+	// need to modify it
 	switch (op) {
 	case '!': return 8;
 	case '++': return 8;
@@ -64,6 +70,14 @@ int Token::check_presedece(char op)
 		//default: error = true; return 0;
 	}
 }
+int Token::get_int_val() const
+{
+	return int_val;
+}
+string Token::get_operator_value()const
+{
+	return operator_value;
+}
 Token Token::token_attributes(char next_char)
 {
 	Token item;
@@ -71,26 +85,30 @@ Token Token::token_attributes(char next_char)
 		// working on it
 			if (isdigit(next_char))
 			{
+				
+				int_val = (int)next_char;
 				item.next_var = next_char;
 				item.type = "operand";
-				
 				return item;
 			}
 			if (is_unary_operator(next_char))
 			{
+				// need to make it string that will allow to accep ++ or && operators
+				operator_value = next_char;
 				item.next_var = next_char;
 				item.type = "operator";
 				item.operator_type = "unary";
-				item.operator_value = check_presedece(next_char);
+				operator_value = check_precedece(next_char);
 				
 				return item;
 			}
 			if (is_binary_operator(next_char))
 			{
+
 				item.next_var = next_char;
 				item.type = "operator";
 				item.operator_type = "binary";
-				item.operator_value = check_presedece(next_char);
+				operator_value = check_precedece(next_char);
 				
 				return item;
 			}

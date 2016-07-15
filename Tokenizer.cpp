@@ -60,15 +60,30 @@ bool Tokenizer::has_more_tokens()
 Token Tokenizer::next_token()
 {
 	// temp token to save the object
-	
+
 	Token tmp;
 	if (has_more_tokens())
 	{
-		
-		tmp = item.token_attributes(expression[index]);
-		// increment the index
-		index++;
-		return tmp;
+		// if prefix and logic operator go next one return next
+		int tempidx = index;
+		if (expression[tempidx] == '+' || expression[tempidx] == '&' || expression[tempidx]=='|'|| expression[tempidx] == '-'
+			|| expression[tempidx] == '>'|| expression[tempidx] == '<'|| expression[tempidx] == '=' || expression[tempidx]=='!')
+		{
+			if (expression[tempidx++] == '+'||expression[tempidx++]=='&'||expression[tempidx++]=='|'|| expression[tempidx++]=='-'
+				|| expression[tempidx++] == '=')
+			{
+				tmp = item.token_attributes(expression[index++]);
+				index++;
+				return tmp;
+			}
+		}
+		else
+		{
+			tmp = item.token_attributes(expression[index]);
+			// increment the index
+			index++;
+			return tmp;
+		}
 	}
 	
 }
