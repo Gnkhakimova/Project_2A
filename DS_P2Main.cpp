@@ -1,5 +1,8 @@
 #include <iostream>
-#include"Parser.h"
+#include<string>
+#include"Tokenizer.h"
+#include"Token.h"
+
 using namespace std;
 
 //int main() {
@@ -9,8 +12,12 @@ using namespace std;
 //}
 int main()
 {
-	Parser parse;
-	parse.check_for_errors("3&&&& 5 ");
+	Tokenizer obj(string("2+3+4"));
+	
+	while (obj.has_more_tokens())
+	{
+		obj.next_token();
+	}
 
 
 }

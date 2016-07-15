@@ -1,2 +1,15 @@
-﻿  DS_P2Main.cpp
-  VSProject_2.vcxproj -> C:\Users\Gulnoza\Documents\UMKC2016\CS303\Project_2A\Debug\VSProject_2.exe
+﻿  Token.cpp
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C3646: 'next_token': unknown override specifier
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C2059: syntax error: '('
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C2238: unexpected token(s) preceding ';'
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(32): error C3646: 'item': unknown override specifier
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  Generating Code...
+  Compiling...
+  DS_P2Main.cpp
+  Generating Code...
+  Compiling...
+  Tokenizer.cpp
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(22): warning C4018: '<=': signed/unsigned mismatch
+  Generating Code...
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(74): warning C4715: 'Tokenizer::next_token': not all control paths return a value

@@ -1,5 +1,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
+#pragma once
 
 #include<string>
 #include<iostream>
@@ -24,16 +25,11 @@ public:
 
 	int check_presedece(char op);
 	Token token_attributes(char ch);
-	
-
-
 	string get_type() const;
 	int get_operator_value() const;
 	string get_operator_type() const;
 	char get_next_var() const;
 	
-	
-
 	bool is_unary_operator(char ch) const
 	{
 		return unary_operators.find(ch) != string::npos;

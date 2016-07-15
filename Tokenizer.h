@@ -1,3 +1,4 @@
+#pragma once
 #ifndef TOKENIZER_H
 #define TOKENIZER_H
 
@@ -14,19 +15,21 @@
 
 using namespace std;
 
-
+int index;
 
 class Tokenizer
 {
 public:
 	
-	Tokenizer(string expression);
-	bool check_for_errors(string expression);
+	Tokenizer(string& expression);
 	Token next_token();
+	bool check_for_errors(string expression);
+	bool has_more_tokens();
 	
 	
 private:
-	
+	string expression;
+	Token item;
 	
 };
 #endif
