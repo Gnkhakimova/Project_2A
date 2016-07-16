@@ -1,15 +1,17 @@
 ﻿  Token.cpp
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C3646: 'next_token': unknown override specifier
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C2059: syntax error: '('
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(25): error C2238: unexpected token(s) preceding ';'
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(32): error C3646: 'item': unknown override specifier
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-  Generating Code...
-  Compiling...
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C3646: 'next_token': unknown override specifier
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C2059: syntax error: '('
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C2238: unexpected token(s) preceding ';'
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(32): error C3646: 'item': unknown override specifier
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  Tokenizer.cpp
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.cpp(22): warning C4018: '<=': signed/unsigned mismatch
+  Evaluator.cpp
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C3646: 'next_token': unknown override specifier
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C2059: syntax error: '('
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(25): error C2238: unexpected token(s) preceding ';'
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(32): error C3646: 'item': unknown override specifier
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.h(32): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
   DS_P2Main.cpp
   Generating Code...
-  Compiling...
-  Tokenizer.cpp
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(22): warning C4018: '<=': signed/unsigned mismatch
-  Generating Code...
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(74): warning C4715: 'Tokenizer::next_token': not all control paths return a value
+c:\users\rebec\desktop\courses\1_summer 2016\data structures\projects\project_2\project_2a\tokenizer.cpp(74): warning C4715: 'Tokenizer::next_token': not all control paths return a value
