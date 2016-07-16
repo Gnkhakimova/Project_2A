@@ -58,40 +58,35 @@ int Evaluator::eval(string the_expression)
 
         string current_operator = current_item.get_str_val();
         int current_operand = current_item.get_int_val();
-        string type = current_item.get_type();
+        string item_type = current_item.get_type();
+        int precedence = current_item.check_precedece();
 
-        if (current_item.get_type() == "operand") {
+        if (item_type == "operand") {
             operand_stack.push(current_operand);
         }
-        else if (current_item.get_type() == "operator" && operator_stack.empty()) {
+        else if (item_type == "operator" && operator_stack.empty()) {
             operator_stack.push(current_item);
         }
-        else if (current_item.get_type() == "operator" && !operator_stack.empty() && current_item.check_presedece() > operator_stack.top().check_presedece()) {
+        else if (item_type == "operator" && !operator_stack.empty() && precedence > operator_stack.top().check_precedece()) {
             operator_stack.push(current_item);
         }
-        else if (current_item.get_str_val() == "(") {
+        else if (current_operator == "(") {
             operator_stack.push(current_item);
         }
-        else if (current_item.get_str_val() == "(") {
+        else if (current_operator == "(") {
             while (operator_stack.top().get_str_val() != "(") {
-                if (operator_stack.top().get_operator_type == "unary") {
-                    unary_process(operator_stack.top().get_str_val(), operand_stack.top());
-                }
-                // !! Fix this - I should just be handling this in the unary_process function - rework.
-                else if (operator_stack.top().get_operator_type == "binary") {
-                    string op_val = operator_stack.top();
-                    operator_stack.pop();
-                    int rhs_op = operand_stack.top();
-                    operand_stack.pop();
-                    int lhs_op = operand_stack.top();
-                    operand_stack.pop();
-                    binary_process(operator_stack.top().get_str_val(), )
-                }
+                process();
             }
+            operator_stack.pop();
         }
-  
+        else {
+            process();
+        }
     }
-    return 0;
+    while (!operator_stack.empty()) {
+        process();
+    }
+    return operand_stack.top();
 }
 
 int Evaluator::unary_process(string unary_operator, int operand)
@@ -101,5 +96,23 @@ int Evaluator::unary_process(string unary_operator, int operand)
 
 int Evaluator::binary_process(string binary_operator, int operator_lhs, int operator_rhs)
 {
+    string op_val = operator_stack.top();
+    operator_stack.pop();
+    int rhs_op = operand_stack.top();
+    operand_stack.pop();
+    int lhs_op = operand_stack.top();
+    operand_stack.pop();
+    binary_process(operator_stack.top().get_str_val(), )
+
     return 0;
+}
+
+void Evaluator::process()
+{
+    if (operator_stack.top().get_operator_type == "unary") {
+        unary_process();
+    }
+    else if (operator_stack.top().get_operator_type == "binary") {
+        binary_process();
+    }
 }

@@ -14,6 +14,7 @@ public:
     int eval(string the_expression);
     int unary_process(string unary_operator, int operand);
     int binary_process(string binary_operator, int operator_lhs, int operator_rhs);
+    void process();
 
 
 private:
