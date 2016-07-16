@@ -2,18 +2,21 @@
 #include"Token.h"
 
 // defining unary and binary operator
-const string Token::unary_operators = "+-*/%^!++--";
-const string Token::binary_operators = "><>=<=&&||-";
+const string Token::unary_operators = "!++---";
+const string Token::binary_operators = "><>=<=&&||-+*/%^==!=";
+
+const string Token::operators = "+-*/%^!><=&|";
 
 // default consturctor set all values to the default 
 Token::Token()
 {
 	// can change it to enum type
+	index = 0;
 	next_var = ' ';
 	// should change it to make eval while loop to know when the end is reached
 	type = "";
 	operator_type = "";
-	operator_value = 0;
+	
 	
 }
 
@@ -37,13 +40,10 @@ string Token::get_operator_type() const
 {
 	return operator_type;
 }
-int Token::get_operator_precedence()const
-{
-	return operator_precedence;
-}
+
 
 // check presedences
-int Token::check_precedece(char op)
+int Token::assign_precedece(char op)
 {
 	
 	// need to modify it
@@ -74,42 +74,112 @@ int Token::get_int_val() const
 {
 	return int_val;
 }
-string Token::get_operator_value()const
+string Token::get_str_val()const
 {
-	return operator_value;
+	return str_val;
 }
-Token Token::token_attributes(char next_char)
+
+Token Token::token_attributes(const string expresstion)
 {
 	Token item;
+	
+	string result = "";
+	while (isdigit(expresstion[index]))
+	{
 
-		// working on it
-			if (isdigit(next_char))
-			{
-				
-				int_val = (int)next_char;
-				item.next_var = next_char;
-				item.type = "operand";
-				return item;
-			}
-			if (is_unary_operator(next_char))
-			{
-				// need to make it string that will allow to accep ++ or && operators
-				operator_value = next_char;
-				item.next_var = next_char;
-				item.type = "operator";
-				item.operator_type = "unary";
-				operator_value = check_precedece(next_char);
-				
-				return item;
-			}
-			if (is_binary_operator(next_char))
-			{
+		result += expresstion[index];
+		// convert strind int int
+		int_val = atoi(result.c_str());
+		
+		item.type = "operand";
+		index++;
+		return item;
+	}
 
-				item.next_var = next_char;
-				item.type = "operator";
-				item.operator_type = "binary";
-				operator_value = check_precedece(next_char);
-				
-				return item;
-			}
+	while (is_operators(expresstion[index]))
+	{
+		item.type = "operator";
+		int tmpidx = index;
+		if (expresstion[index] == '+' && expresstion[tmpidx++] == '+' && isdigit(expresstion[tmpidx++]))
+		{
+			str_val == "++";
+			item.operator_type = "unary";
+			index++;
+			return item;
 		}
+		if (expresstion[index] == '-' && expresstion[tmpidx++] == '-' && isdigit(expresstion[tmpidx++]))
+		{
+			str_val = "--";
+			item.operator_type = "unary";
+			index++;
+			return item;
+		}
+		if (expresstion[index] == '!' && isdigit(expresstion[tmpidx++]))
+		{
+			str_val = expresstion[index];
+			item.operator_type = "unary";
+			index++;
+			return item;
+
+		}
+		if (expresstion[index] == '-' && isdigit(expresstion[tmpidx++]) || expresstion[index] == '-' && is_operators(expresstion[tmpidx++]))
+		{
+			str_val = "-";
+			item.operator_type = "unary";
+			index++;
+			return item;
+		}
+		if (isdigit(expresstion[tmpidx--]) && expresstion[index] == '&' && expresstion[tmpidx + 2] == '&' && isdigit(expresstion[tmpidx++]))
+		{
+			str_val = "&&";
+			item.operator_type == "binary";
+			index++;
+			return item;
+		}
+		if (isdigit(expresstion[tmpidx--]) && expresstion[index] == '|' && expresstion[tmpidx + 2] == '|' && isdigit(expresstion[tmpidx++]))
+		{
+			str_val = "||";
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+		if (expresstion[index] == '>' && expresstion[tmpidx++] == '=')
+		{
+			str_val = ">=";
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+		if (expresstion[index] == '<' && expresstion[tmpidx++] == '=')
+		{
+			str_val = "<=";
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+		if (expresstion[index] == '=' && expresstion[tmpidx++] == '=')
+		{
+			str_val = "==";
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+		if (expresstion[index] == '!' && expresstion[tmpidx++] == '=')
+		{
+			str_val = "!=";
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+		else
+		{
+			str_val = expresstion[index];
+			item.operator_type = "binary";
+			index++;
+			return item;
+		}
+	}
+}
+
+
+				

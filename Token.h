@@ -17,22 +17,30 @@ using namespace std;
 // not sure if i need it
 //enum token_type { unary, binary, operand, EOL };
 //enum Operators { preincr,predecr,negative,OR,AND, };
+int index = 0;
 
 class Token
 {
 public:
 	Token();
 
-	int check_precedece(char op);
+	int assign_precedece(char op);
 	// changint it to string it was char
-	Token token_attributes(char ch);
+	Token token_attributes(const string the_expression);
+
 	string get_type() const;
+
 	int get_operator_precedence() const;
+
 	string get_operator_type() const;
+
 	int get_int_val() const;
-	string get_operator_value()const;
+
+	string get_str_val()const;
+
 	char get_next_var() const;
-	int get_operator_precedence()const;
+
+	
 	
 	bool is_unary_operator(char ch) const
 	{
@@ -42,6 +50,10 @@ public:
 	{
 		return binary_operators.find(ch) != string::npos;
 	}
+	bool is_operators(char ch) const
+	{
+		return operators.find(ch) != string::npos;
+	}
 
 private:
 	// can use enum type
@@ -50,10 +62,11 @@ private:
 	int operator_precedence;
 	string operator_type;
 	int int_val;
-	string operator_value;
+	string str_val;
 
 	static const string unary_operators;
 	static const string binary_operators;
+	static const string operators;
 
 	
 };
