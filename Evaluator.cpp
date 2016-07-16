@@ -4,49 +4,13 @@
 #include <string>
 
 
-Evaluator::Evaluator()
-{
-}
+Evaluator::Evaluator() {}
 
-
-/*
-
-We will use two stacks :
-Operand stack : to keep values(numbers) and
-Operator stack : to keep operators(+, -, *, . and ^).
-
-In the following, “process” means, (i)pop operand stack once(value1) (ii) pop 
-operator stack once(operator) (iii) pop operand stack again(value2) (iv) compute 
-value1 operator value2 (v) push the value obtained in operand stack.
-
-Algorithm :
-
-    Until the end of the expression is reached, get one character and perform 
-    only one of the steps(a) through(f) :
-
-    (a)If the character is an operand, push it onto the operand stack.
-
-    (b)If the character is an operator, and the operator stack is empty then 
-       push it onto the operator stack.
-
-    (c)If the character is an operator and the operator stack is not empty, and 
-       the character's precedence is greater than the precedence of the stack 
-       top of operator stack, then push the character onto the operator stack.
-
-    (d)If the character is "(", then push it onto operator stack.
-
-    (e)If the character is ")", then "process" as explained above until the 
-       corresponding "(" is encountered in operator stack.At this stage POP the 
-       operator stack and ignore "(."
-
-    (f)If cases(a), (b), (c), (d) and (e) do not apply, then process as 
-       explained above.
-
-    When there are no more input characters, keep processing until the operator 
-    stack becomes empty.The value left in the operand stack is the final 
-    result of the expression.
+/** Evaluates an infix expression.
+    @param the_expression The expression to be evaluated
+    @return The value of the expression
+    @throws Exception if error is detected
 */
-
 int Evaluator::eval(string the_expression)
 {
     Token current_item;
@@ -54,65 +18,185 @@ int Evaluator::eval(string the_expression)
     Tokenizer Parser = Tokenizer(the_expression);
     while (Parser.has_more_tokens()) {
 
-        current_item = Parser.next_token();
+         current_item = Parser.next_token();
 
-        string current_operator = current_item.get_str_val();
+        string current_operator = current_item.get_str_val(); 
         int current_operand = current_item.get_int_val();
         string item_type = current_item.get_type();
-        int precedence = current_item.check_precedece();
+        int precedence = current_item.get_operator_precedence();
 
+        // all operands are pushed onto operand_stack
         if (item_type == "operand") {
             operand_stack.push(current_operand);
         }
+
+        // operators are pushed onto the operator_stack if it's empty
         else if (item_type == "operator" && operator_stack.empty()) {
             operator_stack.push(current_item);
         }
-        else if (item_type == "operator" && !operator_stack.empty() && precedence > operator_stack.top().check_precedece()) {
+
+        // an operator is pushed onto the stack if its precedence is higher 
+        // than the operator currently at the top
+        else if (item_type == "operator" && !operator_stack.empty() && precedence > operator_stack.top().get_operator_precedence()) {
             operator_stack.push(current_item);
         }
+
+        // opening parentheses are always pushed onto the operator_stack
         else if (current_operator == "(") {
             operator_stack.push(current_item);
         }
-        else if (current_operator == "(") {
+
+        // when a closing parenthesis is encountered, process until its matching
+        // opening parenthesis is at the top of the stack.
+        else if (current_operator == ")") {
             while (operator_stack.top().get_str_val() != "(") {
                 process();
             }
             operator_stack.pop();
         }
+        
+        // if none of the above apply, perform unary or binary process, depending
+        // on the type of operator at the top of the operator_stack.
         else {
             process();
         }
     }
+
+    // after end of expression, any operators remaining in operator_stack are 
+    // processed.
     while (!operator_stack.empty()) {
         process();
     }
-    return operand_stack.top();
+    // final result is the value remaining in the operand_stack.
+    return operand_stack.top(); 
 }
 
-int Evaluator::unary_process(string unary_operator, int operand)
+/** Checks type of operator and calls unary or binary process as indictated
+*/
+void Evaluator::process()
 {
-    return 0;
+    if (operator_stack.top().get_operator_type() == "unary") {
+        unary_process();
+    }
+    else if (operator_stack.top().get_operator_type() == "binary") {
+        binary_process();
+    }
 }
 
-int Evaluator::binary_process(string binary_operator, int operator_lhs, int operator_rhs)
-{
-    string op_val = operator_stack.top();
+/** Applies a unary operator to an operand and updates stacks
+@return Pushes the result to operand_stack
+*/
+void Evaluator::unary_process() {
+
+    // declare and initialize operator, operand, and result.
+    // pop operator and operand from stacks.
+    int result = 0;
+    string op_val = operator_stack.top().get_str_val();
+    operator_stack.pop();
+    int the_operand = operand_stack.top();
+    operand_stack.pop();
+    
+    // perform indicated operation on operand and assign its value to result.
+    if (op_val == "!") {
+        if (the_operand == 0)
+            result = 0;
+        else
+            result = 1;
+    }
+
+    else if (op_val == "++") {
+        result = the_operand + 1;
+    }
+
+    else if (op_val == "--") {
+        result = the_operand - 1;
+    }
+
+    else if (op_val == "-") {
+        result = the_operand * -1;
+    }
+
+    // push result onto operand stack
+    operand_stack.push(result);
+}
+
+/** Applies a binary operator to two operands and updates stacks
+@return Pushes the result to operand_stack
+*/
+void Evaluator::binary_process() {
+
+    // declare and initialize operator, left and right operands, and result.
+    // pop operands and operator from stacks.
+    int result = 0;
+    string op_val = operator_stack.top().get_str_val();
     operator_stack.pop();
     int rhs_op = operand_stack.top();
     operand_stack.pop();
     int lhs_op = operand_stack.top();
     operand_stack.pop();
-    binary_process(operator_stack.top().get_str_val(), )
 
-    return 0;
-}
+    // perform indicated operation on operands and assign value to result.
+    if (op_val == "^") {
+        result = lhs_op;
+        for (int i = 0; i < rhs_op; i++) {
+            result *= lhs_op;
+        }
+    }
 
-void Evaluator::process()
-{
-    if (operator_stack.top().get_operator_type == "unary") {
-        unary_process();
+    else if (op_val == "*") {
+        result = lhs_op * rhs_op;
     }
-    else if (operator_stack.top().get_operator_type == "binary") {
-        binary_process();
+
+    else if (op_val == "/") {
+        if (rhs_op == 0)
+            throw std::exception("You cannot divide by zero.");
+        result = lhs_op / rhs_op;
     }
+
+    else if (op_val == "%") {
+        result = lhs_op % rhs_op;
+    }
+
+    else if (op_val == "+") {
+        result = lhs_op + rhs_op;
+    }
+
+    else if (op_val == "-") {
+        result = lhs_op - rhs_op;
+    }
+
+    else if (op_val == ">") {
+        result = lhs_op > rhs_op;
+    }
+
+    else if (op_val == ">=") {
+        result = lhs_op >= rhs_op;
+    }
+
+    else if (op_val == "<") {
+        result = lhs_op < rhs_op;
+    }
+
+    else if (op_val == "<=") {
+        result = lhs_op <= rhs_op;
+    }
+
+    else if (op_val == "==") {
+        result = lhs_op == rhs_op;
+    }
+
+    else if (op_val == "!=") {
+        result = lhs_op != rhs_op;
+    }
+
+    else if (op_val == "&&") {
+        result = lhs_op && rhs_op;
+    }
+
+    else if (op_val == "||") {
+        result = lhs_op || rhs_op;
+    }
+
+    // push result onto stack
+    operand_stack.push(result);
 }
