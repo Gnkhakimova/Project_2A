@@ -40,7 +40,8 @@ top of operator_stack, push the character onto operator_stack.
 until "(" is the top token in operator_stack. Pop operator_stack,
 discarding "(".
 
-* If none of the above apply, perform unary_process or binary_process.
+* If none of the above apply, perform unary_process or binary_process once, 
+  then push token onto operator stack.
 
 When there are no more input characters, keep processing until the operator
 stack becomes empty.The value left in the operand stack is the final

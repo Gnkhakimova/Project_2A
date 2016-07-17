@@ -15,10 +15,11 @@
 
 using namespace std;
 
-int index;
+
 
 class Tokenizer
 {
+	int ind;
 public:
 	
 	Tokenizer(string& expression);

@@ -59,6 +59,7 @@ int Evaluator::eval(string the_expression)
         // on the type of operator at the top of the operator_stack.
         else {
             process();
+            operator_stack.push(current_item);
         }
     }
 
