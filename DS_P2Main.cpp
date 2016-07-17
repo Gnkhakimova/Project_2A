@@ -12,12 +12,9 @@ using namespace std;
 //}
 int main()
 {
-	Tokenizer obj(string("2+3+4"));
-	
-	while (obj.has_more_tokens())
-	{
-		obj.next_token();
-	}
+	Tokenizer obj(string("2%6+--2"));
 
+	
+	
 
 }

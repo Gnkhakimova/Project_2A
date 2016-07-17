@@ -11,20 +11,20 @@
 #include<iomanip>
 #include <type_traits>
 #include"Syntax_Error.h"
-#include"Tokenizer.h"
+#include"vector"
 
 using namespace std;
 // not sure if i need it
-//enum token_type { unary, binary, operand, EOL };
-//enum Operators { preincr,predecr,negative,OR,AND, };
-int index = 0;
+
+
 
 class Token
 {
+	int indx;
 public:
 	Token();
 
-	int assign_precedece(char op);
+	int assign_precedece(string op, string op_type);
 	// changint it to string it was char
 	Token token_attributes(const string the_expression);
 
@@ -42,13 +42,14 @@ public:
 
 	
 	
-	bool is_unary_operator(char ch) const
+	bool is_unary_operator(string ch) const
 	{
-		return unary_operators.find(ch) != string::npos;
+		return find(unary_operators.begin(), unary_operators.end(), ch) != unary_operators.end();
+		
 	}
-	bool is_binary_operator(char ch) const
+	bool is_binary_operator(string ch) const
 	{
-		return binary_operators.find(ch) != string::npos;
+		return find(binary_operators.begin(), binary_operators.end(), ch) != binary_operators.end();
 	}
 	bool is_operators(char ch) const
 	{
@@ -64,10 +65,10 @@ private:
 	int int_val;
 	string str_val;
 
-	static const string unary_operators;
-	static const string binary_operators;
+	static const vector<string> unary_operators;
+	static const vector<string> binary_operators;
 	static const string operators;
 
 	
 };
-#endif#pragma once
+#endif
