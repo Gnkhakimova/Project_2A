@@ -1,10 +1,7 @@
 ﻿  Token.cpp
-  Tokenizer.cpp
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(132): warning C4018: '<': signed/unsigned mismatch
-  Evaluator.cpp
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\evaluator.cpp(102): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-  DS_P2Main.cpp
-  Generating Code...
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\tokenizer.cpp(160): warning C4715: 'Tokenizer::next_token': not all control paths return a value
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(231): warning C4715: 'Token::token_attributes': not all control paths return a value
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(146): warning C4018: '<': signed/unsigned mismatch
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(186): warning C4018: '<': signed/unsigned mismatch
+c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(232): warning C4715: 'Token::token_attributes': not all control paths return a value
   VSProject_2.vcxproj -> C:\Users\Gulnoza\Documents\UMKC2016\CS303\Project_2A\Debug\VSProject_2.exe

@@ -141,6 +141,7 @@ Token Tokenizer::next_token()
 	//string value;
 	if (has_more_tokens())
 	{
+		//string temp = item.get_str_val();
 			tmp = item.token_attributes(expression);
 			// increment the index
 			if (item.get_str_val() == "++" || item.get_str_val ()== "--"
@@ -148,6 +149,7 @@ Token Tokenizer::next_token()
 				|| item.get_str_val() == ">=" || item.get_str_val() == "<="
 				|| item.get_str_val() == "==" || item.get_str_val() == "!=")
 			{
+				//if()
 				ind = ind + 2;
 			}
 			else

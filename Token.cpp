@@ -109,6 +109,8 @@ Token Token::token_attributes(const string expresstion)
 		// convert strind int int
 		int_val = atoi(result.c_str());
 		item.int_val = atoi(result.c_str());
+		item.get_str_val() = "";
+		str_val = "";
 		item.type = "operand";
 		indx++;
 		//return type;
@@ -120,8 +122,8 @@ Token Token::token_attributes(const string expresstion)
 		//if(expre)
 		item.type = "operator";
 		int tmpidx = indx;
-		//if (indx < expresstion.length() - 1)
-		//{
+		if (indx < expresstion.length() - 1)
+		{
 		if (expresstion[indx] == '+' && expresstion[tmpidx + 1] == '+' && isdigit(expresstion[tmpidx + 2]))
 		{
 			item.str_val = "++";
@@ -140,9 +142,9 @@ Token Token::token_attributes(const string expresstion)
 			indx++;
 			return item;
 		}
-		//}
-		//if (indx < expresstion.length())
-		//{
+	}
+		if (indx < expresstion.length())
+		{
 		if (expresstion[indx] == '!' && isdigit(expresstion[tmpidx + 1]))
 		{
 			item.str_val = expresstion[indx];
@@ -159,9 +161,9 @@ Token Token::token_attributes(const string expresstion)
 			indx++;
 			return item;
 		}
-		//}
-		//if (indx < expresstion.length() - 1)
-	//	{
+		}
+		if (indx < expresstion.length() - 1)
+	{
 		if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '&' && expresstion[tmpidx + 1] == '&' && isdigit(expresstion[tmpidx + 2]))
 		{
 			item.str_val = "&&";
@@ -180,9 +182,9 @@ Token Token::token_attributes(const string expresstion)
 			indx = indx + 2;
 			return item;
 		}
-		//}
-		//if (indx < expresstion.length())
-	//	{
+		}
+		if (indx < expresstion.length())
+		{
 		if (expresstion[indx] == '>' && expresstion[tmpidx + 1] == '=')
 		{
 			item.str_val = ">=";
@@ -219,16 +221,16 @@ Token Token::token_attributes(const string expresstion)
 			indx = indx + 2;
 			return item;
 		}
-		//}
+		}
 
 		item.str_val = expresstion[indx];
 		item.operator_type = "binary";
 		item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 		indx++;
 		return item;
-		//}
+		}
 	}
-}
+
 
 
 				

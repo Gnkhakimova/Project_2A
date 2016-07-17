@@ -14,7 +14,7 @@ using namespace std;
 //}
 int main()
 {
-    string expression = "!(12-12)";
+    string expression = "++2*9%4";
 
  /*   Tokenizer parser(expression);
 
