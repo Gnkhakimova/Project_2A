@@ -129,7 +129,7 @@ bool Tokenizer::check_for_errors(string expression)
 
 bool Tokenizer::has_more_tokens()
 {
-	return ind != string::npos;
+	return ind < expression.length();
 }
 
 // should return object of token class
@@ -139,12 +139,22 @@ Token Tokenizer::next_token()
 
 	Token tmp;
 	//string value;
-	//if (has_more_tokens())
-	//{
+	if (has_more_tokens())
+	{
 			tmp = item.token_attributes(expression);
 			// increment the index
-			ind++;
+			if (item.get_str_val() == "++" || item.get_str_val ()== "--"
+				|| item.get_str_val ()== "&&" || item.get_str_val() == "||"
+				|| item.get_str_val() == ">=" || item.get_str_val() == "<="
+				|| item.get_str_val() == "==" || item.get_str_val() == "!=")
+			{
+				ind = ind + 2;
+			}
+			else
+			{
+				ind++;
+			}
 			return tmp;
-	//}
+	}
 	
 }

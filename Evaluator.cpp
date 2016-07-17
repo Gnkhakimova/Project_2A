@@ -99,7 +99,8 @@ void Evaluator::unary_process() {
     
     // perform indicated operation on operand and assign its value to result.
     if (op_val == "!") {
-        if (the_operand == 0)
+		bool tmp = bool(the_operand);
+        if (tmp == true)
             result = 0;
         else
             result = 1;
