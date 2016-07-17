@@ -14,7 +14,7 @@ using namespace std;
 //}
 int main()
 {
-    string expression = "(1-1)";
+    string expression = "123-23";
 
  /*   Tokenizer parser(expression);
 

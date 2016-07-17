@@ -159,17 +159,26 @@ Token Tokenizer::next_token()
 			{
 				//if()
 				ind = ind + 2;
+				return tmp;
 			}
-			
+			else if (item.is_binary_operator(item.get_str_val()))
+			{
+				ind++;
+				return tmp;
+			}
+
 			else if (dig_num>1)
 			{
 				ind = ind + dig_num;
+				return tmp;
 			}
+
 			else
 			{
 				ind++;
+				return tmp;
 			}
-			return tmp;
+			
 	}
 	
 }

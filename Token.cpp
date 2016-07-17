@@ -126,8 +126,11 @@ Token Token::token_attributes(const string expresstion)
 	while (is_operators(expresstion[indx]))
 	{
 		//if(expre)
+		item.int_val = 0;
+		int_val = 0;
 		item.type = "operator";
 		int tmpidx = indx;
+		
 		if (indx < expresstion.length() - 1)
 		{
 		if (expresstion[indx] == '+' && expresstion[tmpidx + 1] == '+' && isdigit(expresstion[tmpidx + 2]))
