@@ -6,24 +6,32 @@ Tokenizer::Tokenizer(string& the_expression)
 
 {
 	index = 0;
-	//expression = the_expression;
+	
 	if (check_for_errors(the_expression))
 		
 	{
 		the_expression.erase(remove_if(the_expression.begin(), the_expression.end(), isspace), the_expression.end());
 		expression = the_expression;
 	}
-	
+
 }
+
+string Tokenizer::get_expression()const
+{
+	return expression;
+}
+
 // checks expression for the error gets called when object of tokenizer class id called
 bool Tokenizer::check_for_errors(string expression)
 {
+	string opr;
 	Token item;
 	for (int i = 0; i <= expression.length(); i++)
 	{
+		
 		int error_possition = i;
 		char first = expression[0];
-		if (item.is_binary_operator(first))
+		if (expression[0]=='+' && expression[2]!='+')
 		{
 			throw Syntax_Error("Expression can’t start with a binary operator @ char: ",error_possition);
 		}
@@ -64,26 +72,11 @@ Token Tokenizer::next_token()
 	Token tmp;
 	if (has_more_tokens())
 	{
-		// if prefix and logic operator go next one return next
-		int tempidx = index;
-		if (expression[tempidx] == '+' || expression[tempidx] == '&' || expression[tempidx]=='|'|| expression[tempidx] == '-'
-			|| expression[tempidx] == '>'|| expression[tempidx] == '<'|| expression[tempidx] == '=' || expression[tempidx]=='!')
-		{
-			if (expression[tempidx++] == '+'||expression[tempidx++]=='&'||expression[tempidx++]=='|'|| expression[tempidx++]=='-'
-				|| expression[tempidx++] == '=')
-			{
-				tmp = item.token_attributes(expression[index++]);
-				index++;
-				return tmp;
-			}
-		}
-		else
-		{
-			tmp = item.token_attributes(expression[index]);
+			tmp = item.token_attributes(expression);
 			// increment the index
 			index++;
 			return tmp;
-		}
+		
 	}
 	
 }
