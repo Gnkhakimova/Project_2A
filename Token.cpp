@@ -127,7 +127,7 @@ Token Token::token_attributes(const string expresstion)
 				item.str_val == "++";
 				
 				item.operator_type = "unary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -135,7 +135,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "--";
 				item.operator_type = "unary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -146,7 +146,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = expresstion[indx];
 				item.operator_type = "unary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -154,7 +154,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "-";
 				item.operator_type = "unary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -165,7 +165,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "&&";
 				item.operator_type == "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -173,7 +173,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "||";
 				item.operator_type = "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -184,7 +184,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = ">=";
 				item.operator_type = "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -192,7 +192,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "<=";
 				item.operator_type = "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -200,7 +200,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "==";
 				item.operator_type = "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -208,7 +208,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "!=";
 				item.operator_type = "binary";
-				item.operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx++;
 				return item;
 			}
@@ -216,7 +216,7 @@ Token Token::token_attributes(const string expresstion)
 		
 		item.str_val = expresstion[indx];
 		item.operator_type = "binary";
-		item.operator_precedence = assign_precedece(str_val, operator_type);
+		item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 		indx++;
 		return item;
 	}
