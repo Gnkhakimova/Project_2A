@@ -69,6 +69,10 @@ public:
     */
     int eval(string the_expression);
 
+    /** Checks type of operator and calls unary or binary process as indictated
+    */
+    void process();
+
     /** Applies a unary operator to an operand and updates stacks
         @return Pushes the result to operand_stack
     */
@@ -78,10 +82,6 @@ public:
         @return Pushes the result to operand_stack
     */
     void binary_process();
-
-    /** Checks type of operator and calls unary or binary process as indictated
-    */
-    void process();
 
 
 private:
