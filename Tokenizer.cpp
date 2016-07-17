@@ -93,7 +93,8 @@ bool Tokenizer::check_for_errors(string expression)
 			}
 
 			// need to add what of 2+++2
-			if (item.is_binary_operator(one) && expression[i + 1] != '-' && item.is_binary_operator(two))
+			// might check the length so vector will not go out of boundery
+			if (item.is_binary_operator(one) && expression[i + 1] != '-' && item.is_binary_operator(two) && !isdigit(expression[i+2]))
 			{
 				throw Syntax_Error("Two binary operators in a row @ char ", error_possition + 1);
 			}

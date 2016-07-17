@@ -38,7 +38,7 @@ public:
 
 	string get_str_val()const;
 
-	char get_next_var() const;
+	//char get_next_var() const;
 
 	
 	
@@ -58,7 +58,7 @@ public:
 
 private:
 	// can use enum type
-	char next_var;
+	//char next_var;
 	string type;
 	int operator_precedence;
 	string operator_type;

@@ -10,10 +10,11 @@ const string Token::operators = "+-*/%^!><=&|()";
 // default consturctor set all values to the default 
 Token::Token()
 {
-	// can change it to enum type
 	indx = 0;
-	next_var = ' ';
-	// should change it to make eval while loop to know when the end is reached
+	//next_var = ' ';
+	operator_precedence = 0;
+	int_val=0;
+	str_val="";
 	type = "";
 	operator_type = "";
 	
@@ -21,10 +22,10 @@ Token::Token()
 }
 
 // getters
-char Token::get_next_var() const
-{
-	return next_var;
-}
+//char Token::get_next_var() const
+//{
+//	return next_var;
+//}
 
 string Token::get_type() const
 {
@@ -85,29 +86,7 @@ int Token::assign_precedece(string op, string op_type)
 	else
 		return -1;
 
-	//// need to modify it
-	//switch (op) {
-	//case "!": return 8;
-	//case "++": return 8;
-	//case "--": return 8;
-	//case "-": return 8; // negative operator need to check it
-	//case "^": return 7;
-	//case "*": return 6;
-	//case "/": return 6;
-	//case "%": return 6;
-	//case "+": return 5;
-	//	//case '-': return 5; // minus operator 
-	//case ">": return 4;
-	//case ">=": return 4;
-	//case "<": return 4;
-	//case "<=": return 4;
-	//case "==": return 3;
-	//case "!=": return 3;
-	//case "&&": return 2;
-	//case "||": return 1;
-
-	//	//default: error = true; return 0;
-	//}
+	
 }
 int Token::get_int_val() const
 {
@@ -129,7 +108,7 @@ Token Token::token_attributes(const string expresstion)
 		result += expresstion[indx];
 		// convert strind int int
 		int_val = atoi(result.c_str());
-		
+		item.int_val = atoi(result.c_str());
 		item.type = "operand";
 		indx++;
 		//return type;
@@ -138,24 +117,25 @@ Token Token::token_attributes(const string expresstion)
 
 	while (is_operators(expresstion[indx]))
 	{
+		//if(expresstion[indx-1] = '')
 		item.type = "operator";
 		int tmpidx = indx;
 		if (indx > expresstion.length() - 1)
 		{
 			if (expresstion[indx] == '+' && expresstion[tmpidx + 1] == '+' && isdigit(expresstion[tmpidx + 2]))
 			{
-				str_val == "++";
-
+				item.str_val == "++";
+				
 				item.operator_type = "unary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (expresstion[indx] == '-' && expresstion[tmpidx + 1] == '-' && isdigit(expresstion[tmpidx + 2]))
 			{
-				str_val = "--";
+				item.str_val = "--";
 				item.operator_type = "unary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
@@ -164,17 +144,17 @@ Token Token::token_attributes(const string expresstion)
 		{
 			if (expresstion[indx] == '!' && isdigit(expresstion[tmpidx + 1]))
 			{
-				str_val = expresstion[indx];
+				item.str_val = expresstion[indx];
 				item.operator_type = "unary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (expresstion[indx] == '-' && isdigit(expresstion[tmpidx + 1]) || expresstion[indx] == '-' && is_operators(expresstion[tmpidx + 1]))
 			{
-				str_val = "-";
+				item.str_val = "-";
 				item.operator_type = "unary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
@@ -183,17 +163,17 @@ Token Token::token_attributes(const string expresstion)
 		{
 			if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '&' && expresstion[tmpidx + 1] == '&' && isdigit(expresstion[tmpidx + 2]))
 			{
-				str_val = "&&";
+				item.str_val = "&&";
 				item.operator_type == "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '|' && expresstion[tmpidx + 1] == '|' && isdigit(expresstion[tmpidx + 2]))
 			{
-				str_val = "||";
+				item.str_val = "||";
 				item.operator_type = "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
@@ -202,41 +182,41 @@ Token Token::token_attributes(const string expresstion)
 		{
 			if (expresstion[indx] == '>' && expresstion[tmpidx + 1] == '=')
 			{
-				str_val = ">=";
+				item.str_val = ">=";
 				item.operator_type = "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (expresstion[indx] == '<' && expresstion[tmpidx + 1] == '=')
 			{
-				str_val = "<=";
+				item.str_val = "<=";
 				item.operator_type = "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (expresstion[indx] == '=' && expresstion[tmpidx + 1] == '=')
 			{
-				str_val = "==";
+				item.str_val = "==";
 				item.operator_type = "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 			if (expresstion[indx] == '!' && expresstion[tmpidx + 1] == '=')
 			{
-				str_val = "!=";
+				item.str_val = "!=";
 				item.operator_type = "binary";
-				operator_precedence = assign_precedece(str_val, operator_type);
+				item.operator_precedence = assign_precedece(str_val, operator_type);
 				indx++;
 				return item;
 			}
 		}
 		
-		str_val = expresstion[indx];
+		item.str_val = expresstion[indx];
 		item.operator_type = "binary";
-		operator_precedence = assign_precedece(str_val, operator_type);
+		item.operator_precedence = assign_precedece(str_val, operator_type);
 		indx++;
 		return item;
 	}
