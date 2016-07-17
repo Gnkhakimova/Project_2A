@@ -14,7 +14,7 @@ using namespace std;
 //}
 int main()
 {
-    string expression = "++2*9%4";
+    string expression = "(1-1)";
 
  /*   Tokenizer parser(expression);
 

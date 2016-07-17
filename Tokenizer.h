@@ -27,6 +27,7 @@ public:
 	bool check_for_errors(string expression);
 	bool has_more_tokens();
 	string get_expression()const;
+	int num_digits(int int_val);
 	
 	
 private:

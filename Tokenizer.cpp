@@ -102,8 +102,8 @@ bool Tokenizer::check_for_errors(string expression)
 			if (i < expression.length() - 1)
 			{
 				string three(1, expression[i + 2]);
-				if (expression[i] == '+' && expression[i + 1] == '+' && item.is_binary_operator(three) || expression[i] == '-' && expression[i + 1] == '-'
-					&& item.is_binary_operator(three) || expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(three))
+				if (expression[i] == '+' && expression[i + 1] == '+' && item.is_binary_operator(three) && three!="+"  || expression[i] == '-' && expression[i + 1] == '-'
+					&& item.is_binary_operator(three) && three!="-" || expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(three))
 				{
 					throw Syntax_Error("A unary operand can’t be followed by a binary operator @ char ", error_possition + 1);
 				}
@@ -132,6 +132,12 @@ bool Tokenizer::has_more_tokens()
 	return ind < expression.length();
 }
 
+int Tokenizer::num_digits(int x)
+{
+	int digits = 0; 
+	do { x /= 10; digits++; } while (x != 0);
+		return digits;
+}
 // should return object of token class
 Token Tokenizer::next_token()
 {
@@ -143,6 +149,8 @@ Token Tokenizer::next_token()
 	{
 		//string temp = item.get_str_val();
 			tmp = item.token_attributes(expression);
+			int x = item.get_int_val();
+			int dig_num = num_digits(x);
 			// increment the index
 			if (item.get_str_val() == "++" || item.get_str_val ()== "--"
 				|| item.get_str_val ()== "&&" || item.get_str_val() == "||"
@@ -151,6 +159,11 @@ Token Tokenizer::next_token()
 			{
 				//if()
 				ind = ind + 2;
+			}
+			
+			else if (dig_num>1)
+			{
+				ind = ind + dig_num;
 			}
 			else
 			{

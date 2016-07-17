@@ -1,7 +1,2 @@
-﻿  Token.cpp
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(125): warning C4018: '<': signed/unsigned mismatch
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(146): warning C4018: '<': signed/unsigned mismatch
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(165): warning C4018: '<': signed/unsigned mismatch
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(186): warning C4018: '<': signed/unsigned mismatch
-c:\users\gulnoza\documents\umkc2016\cs303\project_2a\token.cpp(232): warning C4715: 'Token::token_attributes': not all control paths return a value
+﻿  DS_P2Main.cpp
   VSProject_2.vcxproj -> C:\Users\Gulnoza\Documents\UMKC2016\CS303\Project_2A\Debug\VSProject_2.exe
