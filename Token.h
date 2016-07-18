@@ -14,20 +14,19 @@
 #include"vector"
 
 using namespace std;
-// not sure if i need it
 
-
-
+// Token class which will assign attributes to each token
 class Token
 {
 	int indx;
 public:
+	// default constractor, sets all values to the default value
 	Token();
-
+	// assigns precedence to each operator return type int
 	int assign_precedece(string op, string op_type);
-	// changint it to string it was char
+	// assigns attributes to each token return token object
 	Token token_attributes(const string the_expression);
-
+	//getters
 	string get_type() const;
 
 	int get_operator_precedence() const;
@@ -38,15 +37,13 @@ public:
 
 	string get_str_val()const;
 
-	//char get_next_var() const;
-
-	
-	
+		// check is unary operator
 	bool is_unary_operator(string ch) const
 	{
 		return find(unary_operators.begin(), unary_operators.end(), ch) != unary_operators.end();
 		
 	}
+	//check if binary operator
 	bool is_binary_operator(string ch) const
 	{
 		return find(binary_operators.begin(), binary_operators.end(), ch) != binary_operators.end();
@@ -57,8 +54,7 @@ public:
 	}
 
 private:
-	// can use enum type
-	//char next_var;
+	// defining token class variables
 	string type;
 	int operator_precedence;
 	string operator_type;

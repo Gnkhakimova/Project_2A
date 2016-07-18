@@ -16,12 +16,12 @@
 using namespace std;
 
 
-
+// define Tokenizer class
 class Tokenizer
 {
 	int ind;
 public:
-	
+	// when tokenizer constructor gets called expression should be passes as a parameter
 	Tokenizer(string& expression);
 	Token next_token();
 	bool check_for_errors(string expression);

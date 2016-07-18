@@ -11,7 +11,6 @@ const string Token::operators = "+-*/%^!><=&|()";
 Token::Token()
 {
 	indx = 0;
-	//next_var = ' ';
 	operator_precedence = 0;
 	int_val = 0;
 	str_val = "";
@@ -20,13 +19,7 @@ Token::Token()
 
 
 }
-
-// getters
-//char Token::get_next_var() const
-//{
-//	return next_var;
-//}
-
+//getters
 string Token::get_type() const
 {
 	return type;
@@ -41,9 +34,16 @@ string Token::get_operator_type() const
 {
 	return operator_type;
 }
+int Token::get_int_val() const
+{
+	return int_val;
+}
+string Token::get_str_val()const
+{
+	return str_val;
+}
 
-
-//assign presedences
+//assign presedences to each opeartor
 int Token::assign_precedece(string op, string op_type)
 {
 	if (op == "!" && op_type == "unary" || op == "++" && op_type == "unary" || op == "--" && op_type == "unary" || op == "-" && op_type == "unary")
@@ -88,20 +88,14 @@ int Token::assign_precedece(string op, string op_type)
 
 
 }
-int Token::get_int_val() const
-{
-	return int_val;
-}
-string Token::get_str_val()const
-{
-	return str_val;
-}
 
+// assign token atrributes
 Token Token::token_attributes(const string expresstion)
 {
 	Token item;
 
 	string result = "";
+	// if token is digit
 	if (isdigit(expresstion[indx]))
 	{
 		int t = indx;
@@ -122,10 +116,10 @@ Token Token::token_attributes(const string expresstion)
 		//return type;
 		return item;
 	}
-
+	//if token is operator
 	while (is_operators(expresstion[indx]))
 	{
-		//if(expre)
+	
 		item.int_val = 0;
 		int_val = 0;
 		item.type = "operator";
@@ -179,7 +173,8 @@ Token Token::token_attributes(const string expresstion)
 			{
 				string th(1, expresstion[tmpidx - 1]);
 
-				if (expresstion[indx] == '-' && !isdigit(expresstion[tmpidx - 1]) && isdigit(expresstion[tmpidx + 1]) && !is_binary_operator(th))
+				if (expresstion[indx] == '-' && !isdigit(expresstion[tmpidx - 1]) && isdigit(expresstion[tmpidx + 1]) 
+					&& !is_binary_operator(th) || expresstion[tmpidx + 1]=='(')
 				{
 					item.str_val = "-";
 					item.operator_type = "unary";

@@ -9,14 +9,7 @@ using namespace std;
 
 int main()
 {
-    string expression = ")3+2";
-
- /*   Tokenizer parser(expression);
-
-    do {
-        parser.next_token();
-    } while (parser.has_more_tokens());*/
-
+    string expression = "3&&5";
 
     Evaluator eval;
     int result = eval.eval(expression);

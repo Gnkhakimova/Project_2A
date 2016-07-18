@@ -1,6 +1,7 @@
 #include"Tokenizer.h"
 
-// constructor of tokenizer class that get as a parameter string(expression) and does error checking, if no errors were found ot will remove spaces
+// constructor of tokenizer class that get as a parameter string(expression) and does 
+//error checking, if no errors were found ot will remove spaces
 // so user do not have to worry about input format
 Tokenizer::Tokenizer(string& the_expression)
 
@@ -59,10 +60,22 @@ bool Tokenizer::check_for_errors(string expression)
             string msg = "Expression cannot start with a closing parenthesis @ char: ";
             error_handler(msg, error_possition, expression);
 		}
+		if (expression[i] == '(')
+		{
+			for (int j = 0; j < expression.length(); j++)
+			{
+				if (expression[j] != ')')
+				{
+					string msg = "Expression does not have closing parenthesis @ char: ";
+					error_handler(msg, error_possition, expression);
+				}
+			}
+
+		}
 
 		if (i < expression.length())
 		{
-			//string tmp;
+		
 			string one(1, expression[i]);
 			string two(1, expression[i + 1]);
 			
@@ -97,8 +110,7 @@ bool Tokenizer::check_for_errors(string expression)
 				}
 			}
 
-			// need to add what of 2+++2
-			// might check the length so vector will not go out of boundery
+		
 			if (item.is_binary_operator(one) && expression[i + 1] != '-' && expression[i + 1] != '+' && item.is_binary_operator(two) && !isdigit(expression[i + 2]))
 			{
                 string msg = "Two binary operators in a row @ char ";
@@ -153,10 +165,10 @@ Token Tokenizer::next_token()
 	// temp token to save the object
 
 	Token tmp;
-	//string value;
+	
 	if (has_more_tokens())
 	{
-		//string temp = item.get_str_val();
+		
 			tmp = item.token_attributes(expression);
 			int x = item.get_int_val();
 			int dig_num = num_digits(x);
@@ -166,7 +178,7 @@ Token Tokenizer::next_token()
 				|| item.get_str_val() == ">=" || item.get_str_val() == "<="
 				|| item.get_str_val() == "==" || item.get_str_val() == "!=")
 			{
-				//if()
+			
 				ind = ind + 2;
 				return tmp;
 			}
