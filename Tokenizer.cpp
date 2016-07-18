@@ -62,16 +62,28 @@ bool Tokenizer::check_for_errors(string expression)
 		}
 		if (expression[i] == '(')
 		{
-			for (int j = 0; j < expression.length(); j++)
+			bool answer = false;
+			
+			for (int j = i + 1; j < expression.length(); j++)
 			{
-				if (expression[j] != ')')
+
+				if (expression[j] == ')')
+
 				{
-					string msg = "Expression does not have closing parenthesis @ char: ";
-					error_handler(msg, error_possition, expression);
+					answer = true;
 				}
+			
+							
+			}
+			if (answer == false)
+			{
+				string msg = "Expression does not have closing parenthesis @ char: ";
+				error_handler(msg, error_possition, expression);
+			}
+				
 			}
 
-		}
+		
 
 		if (i < expression.length())
 		{
