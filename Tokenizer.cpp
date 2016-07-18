@@ -40,7 +40,8 @@ bool Tokenizer::check_for_errors(string expression)
 			oper = first + expression[1];
 			if (item.is_binary_operator(oper))
 			{
-				throw Syntax_Error("Expression can’t start with a binary operator @ char: ", error_possition);
+                string msg = "Expression cannot start with a binary operator @ char: ";
+                error_handler(msg, error_possition, expression);
 			}
 		}
 		else if (item.is_operators(first))
@@ -48,13 +49,15 @@ bool Tokenizer::check_for_errors(string expression)
 			string firstletter(1, expression[0]);
 			if (item.is_binary_operator(firstletter))
 			{
-				throw Syntax_Error("Expression can’t start with a binary operator @ char: ", error_possition);
+                string msg = "Expression cannot start with a binary operator @ char: ";
+                error_handler(msg, error_possition, expression);
 			}
 		}
 	
 		if (first == ')')
 		{
-			throw Syntax_Error("Expression can’t start with a closing parenthesis @ char: ",error_possition);
+            string msg = "Expression cannot start with a closing parenthesis @ char: ";
+            error_handler(msg, error_possition, expression);
 		}
 
 		if (i < expression.length())
@@ -74,7 +77,8 @@ bool Tokenizer::check_for_errors(string expression)
 						string three(1, expression[i + 2]);
 						if (item.is_binary_operator(three))
 						{
-							throw Syntax_Error("Two binary operators in a row @ char ", error_possition + 1);
+                            string msg = "Two binary operators in a row @ char ";
+                            error_handler(msg, error_possition + 1, expression);
 						}
 						if (i < expression.length() - 2)
 						{
@@ -84,7 +88,8 @@ bool Tokenizer::check_for_errors(string expression)
 								string tmp = three + four;
 								if (item.is_binary_operator(tmp))
 								{
-									throw Syntax_Error("Two binary operators in a row @ char ", error_possition + 1);
+                                    string msg = "Two binary operators in a row @ char ";
+                                    error_handler(msg, error_possition + 1, expression);
 								}
 							}
 						}
@@ -96,7 +101,8 @@ bool Tokenizer::check_for_errors(string expression)
 			// might check the length so vector will not go out of boundery
 			if (item.is_binary_operator(one) && expression[i + 1] != '-' && expression[i + 1] != '+' && item.is_binary_operator(two) && !isdigit(expression[i + 2]))
 			{
-				throw Syntax_Error("Two binary operators in a row @ char ", error_possition + 1);
+                string msg = "Two binary operators in a row @ char ";
+                error_handler(msg, error_possition + 1, expression);
 			}
 
 			if (i < expression.length() - 1)
@@ -104,9 +110,10 @@ bool Tokenizer::check_for_errors(string expression)
 				string three(1, expression[i + 2]);
 				if (expression[i] == '+' && expression[i + 1] == '+' && item.is_binary_operator(three) && expression[i + 2] != '+'
 					|| expression[i] == '-' && expression[i + 1] == '-'	&& item.is_binary_operator(three) && three != "-"
-					|| expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(two))
+					|| expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(two) && expression[i + 1] !='-')
 				{
-					throw Syntax_Error("A unary operand can’t be followed by a binary operator @ char ", error_possition + 1);
+                    string msg = "A unary operand cannot be followed by a binary operator @ char ";
+                    error_handler(msg, error_possition + 1, expression);
 				}
 			}
 
@@ -115,7 +122,6 @@ bool Tokenizer::check_for_errors(string expression)
 
 		if (isdigit(expression[i]) && isspace(expression[i+1]) && isdigit(expression[i + 2]))
 		{
-			//throw Syntax_Error("Two operands in a row @ char ", error_possition+2);
             string msg = "Check expression. Two operands in a row @ char ";
             error_handler(msg, error_possition + 2, expression);
 		}
@@ -123,7 +129,6 @@ bool Tokenizer::check_for_errors(string expression)
 
 		if (expression[i] == '/' && expression[i+1] == '0')
 		{
-			//throw Syntax_Error("Division by zero @ char ", error_possition+1);
             string msg = "Check expression. You have attempted to divide by zero.";
             error_handler(msg, error_possition + 1, expression);
 		}
@@ -189,7 +194,7 @@ Token Tokenizer::next_token()
 
 void Tokenizer::error_handler(string msg, int error_possition, string expression) {
     cout << expression << endl;
-    cout << msg << endl;
+    cout << msg << error_possition << endl;
     cout << "Program terminating." << endl << endl;
     system("pause");
     quick_exit(EXIT_SUCCESS);
