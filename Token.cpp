@@ -190,7 +190,7 @@ Token Token::token_attributes(const string expresstion)
 			{
 				item.str_val = "&&";
 				str_val = "&&";
-				item.operator_type == "binary";
+				item.operator_type = "binary";
 				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 				indx = indx + 2;
 				return item;

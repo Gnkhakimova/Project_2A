@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    string expression = "3&&5";
+	string expression = "2&&3";
 
     Evaluator eval;
     int result = eval.eval(expression);
