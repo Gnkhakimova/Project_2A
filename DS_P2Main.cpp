@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    string expression = "3 + 5 7";
+    string expression = "8/0";
 
  /*   Tokenizer parser(expression);
 

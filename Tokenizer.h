@@ -28,6 +28,7 @@ public:
 	bool has_more_tokens();
 	string get_expression()const;
 	int num_digits(int int_val);
+    void error_handler(string msg, int error_possition, string expression);
 	
 	
 private:

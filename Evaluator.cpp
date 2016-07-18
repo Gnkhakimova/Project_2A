@@ -41,7 +41,7 @@ int Evaluator::eval(string the_expression)
             ((current_item.get_operator_type() == "binary" && precedence > 
                 operator_stack.top().get_operator_precedence()) ||
 
-                (current_item.get_operator_type == "unary" && precedence >= 
+                (current_item.get_operator_type() == "unary" && precedence >= 
                     operator_stack.top().get_operator_precedence())
                 )) {
             operator_stack.push(current_item);

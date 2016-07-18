@@ -115,23 +115,16 @@ bool Tokenizer::check_for_errors(string expression)
 		if (isdigit(expression[i]) && isspace(expression[i+1]) && isdigit(expression[i + 2]))
 		{
 			//throw Syntax_Error("Two operands in a row @ char ", error_possition+2);
-            cout << "Check expression. Two operands in a row @ char " << error_possition + 2 << endl;
-            cout << "Program terminating." << endl << endl;
-            system("pause");
-            quick_exit(EXIT_SUCCESS);
-
+            string msg = "Check expression. Two operands in a row @ char ";
+            error_handler(msg, error_possition + 2, expression);
 		}
 
-		
 
 		if (expression[i] == '/' && expression[i+1] == '0')
 		{
 			//throw Syntax_Error("Division by zero @ char ", error_possition+1);
-            cout << "Check expression. You have attempted to divide by zero." << endl;
-                cout << "Program terminating."  << endl << endl;
-            system("pause");
-            quick_exit(EXIT_SUCCESS);
-
+            string msg = "Check expression. You have attempted to divide by zero.";
+            error_handler(msg, error_possition + 1, expression);
 		}
 	}
 	return true;
@@ -191,4 +184,12 @@ Token Tokenizer::next_token()
 			
 	}
 	
+}
+
+void Tokenizer::error_handler(string msg, int error_possition, string expression) {
+    cout << expression << endl;
+    cout << msg << endl;
+    cout << "Program terminating." << endl << endl;
+    system("pause");
+    quick_exit(EXIT_SUCCESS);
 }
