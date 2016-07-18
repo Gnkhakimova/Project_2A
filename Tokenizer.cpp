@@ -94,16 +94,17 @@ bool Tokenizer::check_for_errors(string expression)
 
 			// need to add what of 2+++2
 			// might check the length so vector will not go out of boundery
-			if (item.is_binary_operator(one) && expression[i + 1] != '-' && item.is_binary_operator(two) && !isdigit(expression[i+2]))
+			if (item.is_binary_operator(one) && expression[i + 1] != '-' && expression[i + 1] != '+' && item.is_binary_operator(two) && !isdigit(expression[i + 2]))
 			{
 				throw Syntax_Error("Two binary operators in a row @ char ", error_possition + 1);
 			}
-			
+
 			if (i < expression.length() - 1)
 			{
 				string three(1, expression[i + 2]);
-				if (expression[i] == '+' && expression[i + 1] == '+' && item.is_binary_operator(three) && three!="+"  || expression[i] == '-' && expression[i + 1] == '-'
-					&& item.is_binary_operator(three) && three!="-" || expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(three))
+				if (expression[i] == '+' && expression[i + 1] == '+' && item.is_binary_operator(three) && expression[i + 2] != '+'
+					|| expression[i] == '-' && expression[i + 1] == '-'	&& item.is_binary_operator(three) && three != "-"
+					|| expression[i] == '!' && expression[i + 1] != '=' && item.is_binary_operator(two))
 				{
 					throw Syntax_Error("A unary operand can’t be followed by a binary operator @ char ", error_possition + 1);
 				}

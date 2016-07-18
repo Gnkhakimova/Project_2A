@@ -3,7 +3,7 @@
 
 // defining unary and binary operator
 const vector<string> Token::unary_operators = { "!","++","--", "-","(",")" };
-const vector<string> Token::binary_operators = {">","<",">=","<=","&&","||","-","+","*","/","%","^", "==","!="};
+const vector<string> Token::binary_operators = { ">","<",">=","<=","&&","||","-","+","*","/","%","^", "==","!=" };
 
 const string Token::operators = "+-*/%^!><=&|()";
 
@@ -13,12 +13,12 @@ Token::Token()
 	indx = 0;
 	//next_var = ' ';
 	operator_precedence = 0;
-	int_val=0;
-	str_val="";
+	int_val = 0;
+	str_val = "";
 	type = "";
 	operator_type = "";
-	
-	
+
+
 }
 
 // getters
@@ -43,7 +43,7 @@ string Token::get_operator_type() const
 }
 
 
- //assign presedences
+//assign presedences
 int Token::assign_precedece(string op, string op_type)
 {
 	if (op == "!" && op_type == "unary" || op == "++" && op_type == "unary" || op == "--" && op_type == "unary" || op == "-" && op_type == "unary")
@@ -54,20 +54,20 @@ int Token::assign_precedece(string op, string op_type)
 	{
 		return 7;
 	}
-	if (op == "*" || op=="/" || op=="%" && op_type == "binary")
+	if (op == "*" || op == "/" || op == "%" && op_type == "binary")
 	{
 		return 6;
 	}
-	if (op == "+" || op=="-" && op_type == "binary")
+	if (op == "+" || op == "-" && op_type == "binary")
 	{
 		return 5;
 	}
-	
+
 	if (op == ">" || op == "<" || op == ">=" || op == "<=" && op_type == "binary")
 	{
 		return 4;
 	}
-	if (op == "==" || op=="!=" && op_type == "binary")
+	if (op == "==" || op == "!=" && op_type == "binary")
 	{
 		return 3;
 	}
@@ -86,7 +86,7 @@ int Token::assign_precedece(string op, string op_type)
 	else
 		return -1;
 
-	
+
 }
 int Token::get_int_val() const
 {
@@ -100,7 +100,7 @@ string Token::get_str_val()const
 Token Token::token_attributes(const string expresstion)
 {
 	Token item;
-	
+
 	string result = "";
 	if (isdigit(expresstion[indx]))
 	{
@@ -110,7 +110,7 @@ Token Token::token_attributes(const string expresstion)
 			result += expresstion[t];
 			t++;
 		}
-		
+
 		// convert strind int int
 		int_val = atoi(result.c_str());
 		item.int_val = atoi(result.c_str());
@@ -118,7 +118,7 @@ Token Token::token_attributes(const string expresstion)
 		str_val = "";
 		item.type = "operand";
 		int step = result.length();
-		indx= indx+step;
+		indx = indx + step;
 		//return type;
 		return item;
 	}
@@ -130,110 +130,124 @@ Token Token::token_attributes(const string expresstion)
 		int_val = 0;
 		item.type = "operator";
 		int tmpidx = indx;
-		
+
 		if (indx < expresstion.length() - 1)
 		{
-		if (expresstion[indx] == '+' && expresstion[tmpidx + 1] == '+' && isdigit(expresstion[tmpidx + 2]))
-		{
-			item.str_val = "++";
-			str_val = "++";
-			item.operator_type = "unary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
-		}
-		if (expresstion[indx] == '-' && expresstion[tmpidx + 1] == '-' && isdigit(expresstion[tmpidx + 2]))
-		{
-			item.str_val = "--";
-			str_val = "--";
-			item.operator_type = "unary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx++;
-			return item;
-		}
-	}
-		if (indx < expresstion.length())
-		{
-		if (expresstion[indx] == '!' && isdigit(expresstion[tmpidx + 1]) 
-			|| expresstion[indx] == '!' && expresstion[tmpidx + 1] == '(')
-		{
-			item.str_val = expresstion[indx];
-			item.operator_type = "unary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx++;
-			return item;
-		}
-		if (expresstion[indx] == '-' && isdigit(expresstion[tmpidx + 1]) && indx == 0 
-			|| expresstion[indx] == '-' && !isdigit(expresstion[tmpidx - 1]))
-			
-		{
-			
-			item.str_val = "-";
-			item.operator_type = "unary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx++;
-			return item;
-		}
-		}
-		if (indx < expresstion.length() - 1 && indx !=0)
-	{
-		if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '&' && expresstion[tmpidx + 1] == '&' && isdigit(expresstion[tmpidx + 2]))
-		{
-			item.str_val = "&&";
-			str_val = "&&";
-			item.operator_type == "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
-		}
-		if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '|' && expresstion[tmpidx + 1] == '|' && isdigit(expresstion[tmpidx + 2]))
-		{
-			item.str_val = "||";
-			str_val = "||";
-			item.operator_type = "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
-		}
+			if (expresstion[indx] == '+' && expresstion[tmpidx + 1] == '+' && isdigit(expresstion[tmpidx + 2]))
+			{
+				item.str_val = "++";
+				str_val = "++";
+				item.operator_type = "unary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
+			if (expresstion[indx] == '-' && expresstion[tmpidx + 1] == '-' && isdigit(expresstion[tmpidx + 2]))
+			{
+				item.str_val = "--";
+				str_val = "--";
+				item.operator_type = "unary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx++;
+				return item;
+			}
 		}
 		if (indx < expresstion.length())
 		{
-		if (expresstion[indx] == '>' && expresstion[tmpidx + 1] == '=')
-		{
-			item.str_val = ">=";
-			str_val = ">=";
-			item.operator_type = "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
+			if (expresstion[indx] == '!' && isdigit(expresstion[tmpidx + 1])
+				|| expresstion[indx] == '!' && expresstion[tmpidx + 1] == '('
+				|| expresstion[indx] == '!' && expresstion[tmpidx + 1] == '-')
+			{
+				item.str_val = expresstion[indx];
+				item.operator_type = "unary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx++;
+				return item;
+			}
+			if (expresstion[indx] == '-' && isdigit(expresstion[tmpidx + 1]) && indx == 0)
+
+			{
+
+				item.str_val = "-";
+				item.operator_type = "unary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx++;
+				return item;
+			}
+
+			if (indx != 0)
+			{
+				string th(1, expresstion[tmpidx - 1]);
+
+				if (expresstion[indx] == '-' && !isdigit(expresstion[tmpidx - 1]) && isdigit(expresstion[tmpidx + 1]) && !is_binary_operator(th))
+				{
+					item.str_val = "-";
+					item.operator_type = "unary";
+					item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+					indx++;
+					return item;
+				}
+			}
 		}
-		if (expresstion[indx] == '<' && expresstion[tmpidx + 1] == '=')
+		if (indx < expresstion.length() - 1 && indx != 0)
 		{
-			item.str_val = "<=";
-			str_val = "<=";
-			item.operator_type = "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
+			if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '&' && expresstion[tmpidx + 1] == '&' && isdigit(expresstion[tmpidx + 2]))
+			{
+				item.str_val = "&&";
+				str_val = "&&";
+				item.operator_type == "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
+			if (isdigit(expresstion[tmpidx - 1]) && expresstion[indx] == '|' && expresstion[tmpidx + 1] == '|' && isdigit(expresstion[tmpidx + 2]))
+			{
+				item.str_val = "||";
+				str_val = "||";
+				item.operator_type = "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
 		}
-		if (expresstion[indx] == '=' && expresstion[tmpidx + 1] == '=')
+		if (indx < expresstion.length())
 		{
-			item.str_val = "==";
-			str_val = "==";
-			item.operator_type = "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
-		}
-		if (expresstion[indx] == '!' && expresstion[tmpidx + 1] == '=')
-		{
-			item.str_val = "!=";
-			str_val = "!=";
-			item.operator_type = "binary";
-			item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
-			indx = indx + 2;
-			return item;
-		}
+			if (expresstion[indx] == '>' && expresstion[tmpidx + 1] == '=')
+			{
+				item.str_val = ">=";
+				str_val = ">=";
+				item.operator_type = "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
+			if (expresstion[indx] == '<' && expresstion[tmpidx + 1] == '=')
+			{
+				item.str_val = "<=";
+				str_val = "<=";
+				item.operator_type = "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
+			if (expresstion[indx] == '=' && expresstion[tmpidx + 1] == '=')
+			{
+				item.str_val = "==";
+				str_val = "==";
+				item.operator_type = "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
+			if (expresstion[indx] == '!' && expresstion[tmpidx + 1] == '=')
+			{
+				item.str_val = "!=";
+				str_val = "!=";
+				item.operator_type = "binary";
+				item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
+				indx = indx + 2;
+				return item;
+			}
 		}
 
 		item.str_val = expresstion[indx];
@@ -241,9 +255,9 @@ Token Token::token_attributes(const string expresstion)
 		item.operator_precedence = assign_precedece(item.str_val, item.operator_type);
 		indx++;
 		return item;
-		}
 	}
+}
 
 
 
-				
+
