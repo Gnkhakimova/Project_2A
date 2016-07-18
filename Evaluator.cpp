@@ -37,7 +37,13 @@ int Evaluator::eval(string the_expression)
 
         // an operator is pushed onto the stack if its precedence is higher 
         // than the operator currently at the top
-        else if (item_type == "operator" && !operator_stack.empty() && precedence > operator_stack.top().get_operator_precedence()) {
+        else if (item_type == "operator" && !operator_stack.empty() && 
+            ((current_item.get_operator_type() == "binary" && precedence > 
+                operator_stack.top().get_operator_precedence()) ||
+
+                (current_item.get_operator_type == "unary" && precedence >= 
+                    operator_stack.top().get_operator_precedence())
+                )) {
             operator_stack.push(current_item);
         }
 
@@ -150,8 +156,11 @@ void Evaluator::binary_process() {
     }
 
     else if (op_val == "/") {
-        if (rhs_op == 0)
-            throw std::exception("You cannot divide by zero.");
+        if (rhs_op == 0) {
+            cout << "Check expression. You have attempted to divide by zero. Program terminating.";
+            quick_exit(EXIT_SUCCESS);
+        }
+
         result = lhs_op / rhs_op;
     }
 

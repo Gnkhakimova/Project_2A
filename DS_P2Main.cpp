@@ -7,14 +7,9 @@
 
 using namespace std;
 
-//int main() {
-//    Evaluator eval;
-//    int result = eval.eval("!!!3+2");
-//    return 0;
-//}
 int main()
 {
-    string expression = "123-23";
+    string expression = "3 + 5 7";
 
  /*   Tokenizer parser(expression);
 
